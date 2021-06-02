@@ -1493,6 +1493,8 @@ void CGameContext::OnInit(/*class IKernel *pKernel*/)
 	m_World.SetGameServer(this);
 	m_Events.SetGameServer(this);
 
+	m_pBot = new CDiscordBot(this);
+
 	//if(!data) // only load once
 		//data = load_data_from_memory(internal_data);
 
