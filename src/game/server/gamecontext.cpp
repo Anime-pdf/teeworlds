@@ -39,7 +39,8 @@ void CGameContext::Construct(int Resetting)
 	uint64_t value;
 	std::istringstream iss(g_Config.m_SvChannel);
 	iss >> value;
-	m_Bot = new CDiscordBot(this, g_Config.m_SvToken, value);
+	Discord()->Token = g_Config.m_SvToken;
+	Discord()->Channel = value;
 
 	if(Resetting==NO_RESET)
 		m_pVoteOptionHeap = new CHeap();
@@ -1493,7 +1494,7 @@ void CGameContext::OnInit(/*class IKernel *pKernel*/)
 	m_World.SetGameServer(this);
 	m_Events.SetGameServer(this);
 
-	m_pBot = new CDiscordBot(this);
+	m_pDiscord = new CDiscordBot(this);
 
 	//if(!data) // only load once
 		//data = load_data_from_memory(internal_data);
