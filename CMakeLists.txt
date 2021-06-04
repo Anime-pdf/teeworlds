@@ -91,7 +91,7 @@ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
   src/game/version.h
 )
 
-set(SERVER_EXECUTABLE anime_gctf CACHE STRING "Name of the built server executable")
+set(SERVER_EXECUTABLE teeworlds_srv CACHE STRING "Name of the built server executable")
 set(CLIENT_EXECUTABLE teeworlds CACHE STRING "Name of the build client executable")
 
 ########################################################################
@@ -253,7 +253,6 @@ if(NOT CMAKE_CROSSCOMPILING)
   find_package(PkgConfig)
 endif()
 find_package(ZLIB)
-find_package(Crypto)
 find_package(Freetype)
 find_package(Git)
 find_package(Pnglite)
@@ -261,7 +260,6 @@ find_package(PythonInterp)
 find_package(SDL)
 find_package(Threads)
 find_package(Wavpack)
-find_package(DPP REQUIRED)
 
 
 if(TARGET_OS AND TARGET_OS STREQUAL "mac")
@@ -302,13 +300,11 @@ show_dependency_status("Freetype" FREETYPE)
 if(TARGET_OS AND TARGET_OS STREQUAL "mac")
   show_dependency_status("Hdiutil" HDIUTIL)
 endif()
-show_dependency_status("OpenSSL Crypto" CRYPTO)
 show_dependency_status("Pnglite" PNGLITE)
 show_dependency_status("PythonInterp" PYTHONINTERP)
 show_dependency_status("SDL" SDL)
 show_dependency_status("Wavpack" WAVPACK)
 show_dependency_status("Zlib" ZLIB)
-show_dependency_status("DPP" DPP)
 
 if(NOT(PYTHONINTERP_FOUND))
   message(SEND_ERROR "You must install Python to compile Teeworlds")
@@ -739,8 +735,6 @@ set_glob(ENGINE_SERVER GLOB src/engine/server
   server.h
 )
 set_glob(GAME_SERVER GLOB_RECURSE src/game/server
-  discord/bot.cpp
-  discord/bot.h
   entities/character.cpp
   entities/character.h
   entities/flag.cpp
@@ -784,11 +778,7 @@ else()
 endif()
 
 # Libraries
-<<<<<<< HEAD
-set(LIBS_SERVER ${LIBS} ${DPP_LIBRARIES} ${CRYPTO_LIBRARIES} ${OPENSSL_LIBRARIES})
-=======
 set(LIBS_SERVER ${LIBS})
->>>>>>> parent of e538c6c0 (god damn)
 
 # Target
 set(TARGET_SERVER ${SERVER_EXECUTABLE})
@@ -800,11 +790,6 @@ add_executable(${TARGET_SERVER}
   $<TARGET_OBJECTS:game-shared>
 )
 target_link_libraries(${TARGET_SERVER} ${LIBS_SERVER})
-
-target_include_directories(${TARGET_SERVER} PRIVATE
-  ${DPP_INCLUDE_LIBRARIES}
-)
-
 list(APPEND TARGETS_OWN ${TARGET_SERVER})
 list(APPEND TARGETS_LINK ${TARGET_SERVER})
 
@@ -1247,11 +1232,6 @@ foreach(target ${TARGETS_OWN})
   target_compile_definitions(${target} PRIVATE $<$<CONFIG:Debug>:CONF_DEBUG>)
   target_include_directories(${target} PRIVATE ${CURL_INCLUDE_DIRS})
   target_include_directories(${target} PRIVATE ${ZLIB_INCLUDE_DIRS})
-  target_include_directories(${target} PRIVATE ${DPP_INCLUDE_DIRS})
-  if(CRYPTO_FOUND)
-    target_compile_definitions(${target} PRIVATE CONF_OPENSSL)
-    target_include_directories(${target} PRIVATE ${CRYPTO_INCLUDE_DIRS})
-  endif()
 endforeach()
 
 foreach(target ${TARGETS_DEP})

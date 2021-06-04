@@ -35,14 +35,6 @@ void CGameContext::Construct(int Resetting)
 	m_pVoteOptionLast = 0;
 	m_NumVoteOptions = 0;
 	m_LockTeams = 0;
-<<<<<<< HEAD
-	uint64_t value;
-	std::istringstream iss(g_Config.m_SvChannel);
-	iss >> value;
-	Discord()->Token = g_Config.m_SvToken;
-	Discord()->Channel = value;
-=======
->>>>>>> parent of e538c6c0 (god damn)
 
 	if(Resetting==NO_RESET)
 		m_pVoteOptionHeap = new CHeap();
@@ -1493,8 +1485,6 @@ void CGameContext::OnInit(/*class IKernel *pKernel*/)
 	m_pConsole = Kernel()->RequestInterface<IConsole>();
 	m_World.SetGameServer(this);
 	m_Events.SetGameServer(this);
-
-	m_pDiscord = new CDiscordBot(this);
 
 	//if(!data) // only load once
 		//data = load_data_from_memory(internal_data);
