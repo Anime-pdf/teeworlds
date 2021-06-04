@@ -67,7 +67,6 @@ else()
   set(TARGET_ARCH)
 endif()
 
-
 set(AUTO_DEPENDENCIES_DEFAULT OFF)
 if(TARGET_OS STREQUAL "windows")
   set(AUTO_DEPENDENCIES_DEFAULT ON)
@@ -261,7 +260,6 @@ find_package(Pnglite)
 find_package(PythonInterp)
 find_package(SDL)
 find_package(Threads)
-#find_package(DPP)
 find_package(Wavpack)
 find_package(DPP REQUIRED)
 
@@ -308,7 +306,6 @@ show_dependency_status("OpenSSL Crypto" CRYPTO)
 show_dependency_status("Pnglite" PNGLITE)
 show_dependency_status("PythonInterp" PYTHONINTERP)
 show_dependency_status("SDL" SDL)
-#show_dependency_status("DPP" DPP)
 show_dependency_status("Wavpack" WAVPACK)
 show_dependency_status("Zlib" ZLIB)
 show_dependency_status("DPP" DPP)
@@ -766,8 +763,6 @@ set_glob(GAME_SERVER GLOB_RECURSE src/game/server
   gamemodes/ctf.h
   gamemodes/dm.cpp
   gamemodes/dm.h
-  gamemodes/grenade.cpp
-  gamemodes/grenade.h
   gamemodes/mod.cpp
   gamemodes/mod.h
   gamemodes/tdm.cpp
@@ -777,16 +772,11 @@ set_glob(GAME_SERVER GLOB_RECURSE src/game/server
   player.cpp
   player.h
 )
-
-set_glob(SERVER_DPP GLOB other/dpp/include
-  ../../../src/game/server/discord/bot.cpp
-  ../../../src/game/server/discord/bot.h
-)
 set(GAME_GENERATED_SERVER
   "src/game/generated/server_data.cpp"
   "src/game/generated/server_data.h"
 )
-set(SERVER_SRC ${ENGINE_SERVER} ${GAME_SERVER} ${GAME_GENERATED_SERVER} ${SERVER_DPP})
+set(SERVER_SRC ${ENGINE_SERVER} ${GAME_SERVER} ${GAME_GENERATED_SERVER})
 if(TARGET_OS STREQUAL "windows")
   set(SERVER_ICON "other/icons/${SERVER_EXECUTABLE}.rc")
 else()
@@ -794,7 +784,11 @@ else()
 endif()
 
 # Libraries
+<<<<<<< HEAD
 set(LIBS_SERVER ${LIBS} ${DPP_LIBRARIES} ${CRYPTO_LIBRARIES} ${OPENSSL_LIBRARIES})
+=======
+set(LIBS_SERVER ${LIBS})
+>>>>>>> parent of e538c6c0 (god damn)
 
 # Target
 set(TARGET_SERVER ${SERVER_EXECUTABLE})
@@ -1248,7 +1242,6 @@ foreach(target ${TARGETS_OWN})
   if(OUR_FLAGS_OWN)
     target_compile_options(${target} PRIVATE ${OUR_FLAGS_OWN})
   endif()
-  target_compile_features(${target} PRIVATE cxx_std_17)
   target_include_directories(${target} PRIVATE ${PROJECT_BINARY_DIR}/src)
   target_include_directories(${target} PRIVATE src)
   target_compile_definitions(${target} PRIVATE $<$<CONFIG:Debug>:CONF_DEBUG>)

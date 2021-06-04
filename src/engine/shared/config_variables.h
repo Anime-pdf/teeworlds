@@ -86,9 +86,6 @@ MACRO_CONFIG_INT(SvPort, sv_port, 8303, 0, 0, CFGFLAG_SERVER, "Port to use for t
 MACRO_CONFIG_INT(SvExternalPort, sv_external_port, 0, 0, 0, CFGFLAG_SERVER, "External port to report to the master servers")
 
 ///////////////////////////////
-MACRO_CONFIG_STR(SvToken, sv_discord_token, 256, "none", CFGFLAG_SERVER, "Name of the file where the statistics are stored in")
-MACRO_CONFIG_STR(SvChannel, sv_discord_channel, 256, "none", CFGFLAG_SERVER, "How much informations in the statistics-file should be saved (0 to disable saving)")
-
 MACRO_CONFIG_STR(SvStatsFile, sv_stats_file, 256, "stats.txt", CFGFLAG_SERVER, "Name of the file where the statistics are stored in")
 MACRO_CONFIG_INT(SvStatsOutputlevel, sv_stats_outputlevel, 0, 0, 3, CFGFLAG_SERVER, "How much informations in the statistics-file should be saved (0 to disable saving)")
 

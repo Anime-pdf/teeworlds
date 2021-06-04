@@ -72,7 +72,10 @@ class CGameContext : public IGameServer
 
 	bool m_Resetting;
 public:
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of e538c6c0 (god damn)
 	bool gCTF;
 
 	CDiscordBot *m_pDiscord;
